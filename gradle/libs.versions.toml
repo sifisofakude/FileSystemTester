@@ -1,6 +1,6 @@
 [versions]
 agp = "9.2.0"
-compose = "2.0.21"
+compose = "2.4.10"
 ktAndroid = "2.2.21"
 
 bom = "2026.08.00"

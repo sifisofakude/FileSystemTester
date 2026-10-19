@@ -3,7 +3,7 @@ package com.slambyte.tester.filesystem
 
 import android.os.Bundle
 import android.content.Intent
-import androidx.ativity.ComponentActivity
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Text
