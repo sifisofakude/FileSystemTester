@@ -4,9 +4,8 @@ package com.slambyte.tester.filesystem.ui.composable
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.material.*
 import androidx.compose.material3.*
-import androidx.compose.material.icons.Icons
+import androidx.compose.ui.window.Dialog
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.InsertDriveFile
@@ -66,7 +65,7 @@ fun FileManagerScreen(
     ) {
         Text(
             "Selected directory",
-            style = MaterialTheme.typography.subtitle1
+            style = MaterialTheme.typography.titleMedium
         )
 
         Text(
@@ -230,7 +229,7 @@ fun GridScreen(
     ) {
         Text(
             "Directory",
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.titleLarge
         )
 
         Text(
@@ -284,7 +283,9 @@ fun GridScreen(
                             .clickable {
                                 onItemClick(entry)
                             },
-                        elevation = 4.dp
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 4.dp
+                        )
                     ) {
                         Column(
                             modifier = Modifier.padding(12.dp),
@@ -348,7 +349,7 @@ fun CopyScreen(
     ) {
         Text(
             "Copy a file or folder",
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.titleLarge
         )
 
         Row(
@@ -421,7 +422,7 @@ fun CopyScreen(
         Text(
             "The destination does not need to exist. Its type must " +
                 "be compatible with the source. Existing items require confirmation.",
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }
@@ -441,7 +442,9 @@ fun PickOptionDialog(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            elevation = 8.dp
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 4.dp
+            )
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -450,7 +453,7 @@ fun PickOptionDialog(
             ) {
                 Text(
                     "Select what to pick",
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.titleLarge
                 )
 
                 Button(onClick = onPickFile) {
