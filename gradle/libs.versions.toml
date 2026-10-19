@@ -14,6 +14,7 @@ filesystem = "1.0.0"
 navigation = "2.9.6"
 
 [libraries]
+compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "bom" }
 startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }

@@ -43,6 +43,7 @@ dependencies	{
   implementation(platform(libs.compose.bom))
   
   implementation(libs.core.ktx)
+  implementation(libs.compose.material.icons.extended)
   implementation(libs.startup.runtime)
   implementation(libs.activity.compose)
   implementation(libs.ui.tooling.preview)
