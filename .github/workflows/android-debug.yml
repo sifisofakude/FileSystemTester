@@ -30,19 +30,10 @@ jobs:
 
       - name: Accept Android SDK licenses
         run: |
-          mkdir -p "$ANDROID_HOME/licenses"
-          for license in \
-            android-sdk-license \
-            android-sdk-preview-license \
-            google-gdk-license \
-            intel-android-extra-license \
-            mips-android-sysimage-license; do
-            touch "$ANDROID_HOME/licenses/$license"
-          done
           yes | sdkmanager --licenses
 
-      # - name: Install Android SDK 37
-      #  run: sdkmanager "platforms;android-37"
+       - name: Install Android SDK 37
+         run: sdkmanager "platforms;android-37"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
