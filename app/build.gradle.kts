@@ -24,7 +24,7 @@ android	{
 		
 		debug {
 		  applicationIdSuffix = ".debug"
-		  debuggable = true
+		  isDebuggable = true
 		}
 	}
 	
@@ -45,7 +45,7 @@ dependencies	{
   implementation(libs.core.ktx)
   implementation(libs.startup.runtime)
   implementation(libs.activity.compose)
-  implementation(libs.ui.tooling.priview)
+  implementation(libs.ui.tooling.preview)
   implementation(libs.material3)
 	implementation(libs.material)
 	implementation(libs.filesystem)
