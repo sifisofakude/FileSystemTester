@@ -6,7 +6,7 @@ plugins	{
 
 android	{
 	namespace = "com.slambyte.tester.filesystem"
-	compileSdk = 37
+	compileSdk = 36
 	defaultConfig	{
 		applicationId = "com.slambyte.tester.filesystem"
 		minSdk = 24
