@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.2"
+agp = "9.0.2"
 compose = "2.0.21"
 ktAndroid = "2.2.21"
 
