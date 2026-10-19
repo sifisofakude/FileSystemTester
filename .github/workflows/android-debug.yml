@@ -29,7 +29,18 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses
+        run: sdkmanager --licenses <<EOF
+        y
+        y
+        y
+        y
+        y
+        y
+        y
+        y
+        y
+        y
+        EOF
 
       - name: Install Android SDK 37
         run: sdkmanager "platforms;android-37"
