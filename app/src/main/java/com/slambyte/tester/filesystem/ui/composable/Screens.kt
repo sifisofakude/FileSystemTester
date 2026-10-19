@@ -77,7 +77,7 @@ fun FileManagerScreen(
         if (message != null) {
             Text(
                 message,
-                color = MaterialTheme.colors.error
+                color = MaterialTheme.colorScheme.error
             )
         }
 
@@ -179,7 +179,7 @@ fun NameInputScreen(
         if (error != null) {
             Text(
                 error,
-                color = MaterialTheme.colors.error
+                color = MaterialTheme.colorScheme.error
             )
         }
 
@@ -241,7 +241,7 @@ fun GridScreen(
         if (error != null) {
             Text(
                 error,
-                color = MaterialTheme.colors.error
+                color = MaterialTheme.colorScheme.error
             )
         }
 
@@ -397,7 +397,7 @@ fun CopyScreen(
         if (error != null) {
             Text(
                 error,
-                color = MaterialTheme.colors.error
+                color = MaterialTheme.colorScheme.error
             )
         }
 
