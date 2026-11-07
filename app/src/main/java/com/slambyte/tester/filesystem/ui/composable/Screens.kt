@@ -652,9 +652,7 @@ fun FileManagerApp(
         selectedRoot = path
         currentDirectory = path
 
-        directoryStack.clear()
-        directoryStack.add(path)
-
+				currentFile = FileOperation(path)
         refreshGrid(path)
 
         message = "Root directory selected."
@@ -952,7 +950,7 @@ fun FileManagerApp(
 
                             if(currentFile != null)	{
                             	currentDirectory = currentFile.path
-                            	refreshGrid(currentFile.path)
+                            	refreshGrid(currentFile.pathy)
                             }
                         } else {
                             message = "Selected file: ${entry.name}"
