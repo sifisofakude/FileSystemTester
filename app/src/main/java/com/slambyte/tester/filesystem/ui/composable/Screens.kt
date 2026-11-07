@@ -530,7 +530,11 @@ fun FileManagerApp(
     }
 
     val directoryStack = remember {
-        mutableStateListOf<String>()
+        mutableStateListOf<FileOperation>()
+    }
+
+    var currentFile = remember 	{
+    	mutableStateOf<FileOperation?>(null)
     }
 
     var fromPath by remember {
@@ -825,14 +829,14 @@ fun FileManagerApp(
                             "Name cannot be empty."
                         }
 
-                        require(
-                            '/' !in name &&
-                                '\\' !in name &&
-                                name != "." &&
-                                name != ".."
-                        ) {
-                            "Enter a single file or folder name."
-                        }
+                        // require(
+                        //     '/' !in name &&
+                        //         '\\' !in name &&
+                        //         name != "." &&
+                        //         name != ".."
+                        // ) {
+                        //     "Enter a single file or folder name."
+                        // }
 
                         val targetPath = fileSystem.combinePath(
                             parent,
@@ -930,22 +934,26 @@ fun FileManagerApp(
                         refreshGrid(directory)
                     },
                     onUp = {
-                        if (directoryStack.size > 1) {
-                            directoryStack.removeAt(
-                                directoryStack.lastIndex
-                            )
 
-                            val parent = directoryStack.last()
-
-                            currentDirectory = parent
-                            refreshGrid(parent)
+                        currentFile = currentFile?.parent
+                        if(currentFile != null)	{
+                            refreshGrid(currentFile.path)
+                            currentDirectory = currentFile.path
                         }
                     },
                     onItemClick = { entry ->
                         if (entry.isDirectory) {
-                            directoryStack.add(entry.path)
-                            currentDirectory = entry.path
-                            refreshGrid(entry.path)
+                            // directoryStack.add(FileOperation(entry.path))
+                            if(currentFile == null)	{
+                            	currentFile = FileOperation(entry.name)
+                            }else	{
+                            	currentFile = FileOperation(currentFile,entry.path)
+                            }
+
+                            if(currentFile != null)	{
+                            	currentDirectory = currentFile.path
+                            	refreshGrid(currentFile.path)
+                            }
                         } else {
                             message = "Selected file: ${entry.name}"
                             fromPath = entry.path
