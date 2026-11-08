@@ -206,8 +206,7 @@ fun NameInputScreen(
 
 data class FileEntry(
     val name: String,
-    val path: String,
-    val isDirectory: Boolean
+    val file: FileOperation
 )
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -293,12 +292,12 @@ fun GridScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Icon(
-                                imageVector = if (entry.isDirectory) {
+                                imageVector = if (entry.file.isDirectory()) {
                                     Icons.Default.Folder
                                 } else {
                                     Icons.Default.InsertDriveFile
                                 },
-                                contentDescription = if (entry.isDirectory) {
+                                contentDescription = if (entry.file.isDirectory()) {
                                     "Directory"
                                 } else {
                                     "File"
@@ -533,7 +532,7 @@ fun FileManagerApp(
         mutableStateListOf<FileOperation>()
     }
 
-    var currentFile = remember 	{
+    val currentFile = remember 	{
     	mutableStateOf<FileOperation?>(null)
     }
 
@@ -609,25 +608,24 @@ fun FileManagerApp(
 
     fun refreshGrid(path: String) {
         try {
-            val directory = FileOperation(path)
+            val tmpDir = FileOperation(path)
 
-            if (!directory.exists() || !directory.isDirectory()) {
+            if (!tmpDir.exists() || !tmpDir.isDirectory()) {
                 throw IOException(
                     "Not a directory or access denied: $path"
                 )
             }
 
-            gridItems = directory.listFiles()
+            gridItems = tmpDir.listFiles()
                 .map { source ->
                     FileEntry(
                         name = source.name,
-                        path = source.path,
-                        isDirectory = source.isDirectory()
+                        file = source
                     )
                 }
                 .sortedWith(
                     compareBy<FileEntry>(
-                        { !it.isDirectory },
+                        { !it.file.isDirectory() },
                         { it.name.lowercase() }
                     )
                 )
@@ -652,7 +650,7 @@ fun FileManagerApp(
         selectedRoot = path
         currentDirectory = path
 
-				currentFile = FileOperation(path)
+				currentFile.value = FileOperation(path)
         refreshGrid(path)
 
         message = "Root directory selected."
@@ -933,35 +931,28 @@ fun FileManagerApp(
                     },
                     onUp = {
 
-                        currentFile = currentFile?.parent
-                        if(currentFile != null)	{
-                            refreshGrid(currentFile.path)
-                            currentDirectory = currentFile.path
+                        currentFile.value = currentFile.value?.parent
+                        if(currentFile.value != null)	{
+                     				val tmpParent = currentFile.value
+                            refreshGrid(tmpParent!!.path)
+                            currentDirectory = tmpParent!!.path
                         }
                     },
                     onItemClick = { entry ->
-                        if (entry.isDirectory) {
-                            // directoryStack.add(FileOperation(entry.path))
-                            if(currentFile == null)	{
-                            	currentFile = FileOperation(entry.name)
-                            }else	{
-                            	currentFile = FileOperation(currentFile,entry.path)
-                            }
+                        if (entry.file.isDirectory()) {
 
-                            if(currentFile != null)	{
-                            	currentDirectory = currentFile.path
-                            	refreshGrid(currentFile.pathy)
-                            }
+                            currentFile.value = entry.file
+
+                           	currentDirectory = entry.file.path
+                           	refreshGrid(entry.file.path)
                         } else {
                             message = "Selected file: ${entry.name}"
-                            fromPath = entry.path
+                            fromPath = entry.file.path
                         }
                     },
                     onDelete = { entry ->
                         try {
-                            val operation = FileOperation(entry.path)
-
-                            if (!operation.delete()) {
+                            if (!entry.file.delete()) {
                                 throw IOException(
                                     "Could not delete ${entry.name}"
                                 )
