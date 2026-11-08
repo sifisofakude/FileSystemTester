@@ -10,7 +10,7 @@ activityCompose = "1.13.0"
 uiTooling = "1.12.1"
 material3 = "1.4.0"
 material = "1.14.0"
-filesystem = "1.0.1-beta06"
+filesystem = "1.0.1-beta07"
 navigation = "2.9.6"
 
 [libraries]
