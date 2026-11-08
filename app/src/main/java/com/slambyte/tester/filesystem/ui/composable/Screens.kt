@@ -945,6 +945,7 @@ fun FileManagerApp(
 
                            	currentDirectory = entry.file.path
                            	refreshGrid(entry.file.path)
+                           	message = "Contains: ${entry.file.listFiles().size} items"
                         } else {
                             message = "Selected file: ${entry.name}"
                             fromPath = entry.file.path
